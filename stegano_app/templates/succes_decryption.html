@@ -1,0 +1,94 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chiffrement-Steganographie</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+
+        .hidden-message {
+            background-color: #f8d7da;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            display: none; /* Initially hidden */
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    {% include "navbar.html" %}
+    <div class="container">
+        <br><br>
+        <h1>Voici le message caché</h1>
+        <br><br>
+        <p>
+            {% if message %}
+                <div class="alert alert-success mt-3">
+                    <h4>Message caché :</h4>
+                    <p class="hidden-message" id="hiddenMessage">{{ message }}</p>
+                    <button onclick="toggleVisibility()">Cacher/Dévoiler</button>
+                    <button onclick="copyToClipboard()">Copier</button>
+                </div>
+            {% endif %}
+        </p>
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            var hiddenMessage = document.getElementById('hiddenMessage');
+            var range = document.createRange();
+            range.selectNode(hiddenMessage);
+            
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+
+            alert('Le message caché a été copié : ' + hiddenMessage.innerText);
+        }
+
+        function toggleVisibility() {
+            var hiddenMessage = document.getElementById('hiddenMessage');
+            hiddenMessage.style.display = (hiddenMessage.style.display === 'none') ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

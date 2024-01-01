@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chiffrement-Steganographie</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .download-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .download-link a {
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+    </style>
+</head>
+<body>
+    {% include "navbar.html" %}
+    <div class="container">
+        <br><br>
+        <h1>Votre message a été caché dans cette image</h1>
+        <br><br>
+        <p>
+            Votre image :
+            <img src="{{ image_link }}" alt="Encrypted Image" style="max-width: 25%; height: 25%;">
+        </p>
+        <p class="download-link">
+            Télécharger votre image en cliquant sur le lien ci-dessous :
+            <a href="{{ image_link }}" class="btn btn-danger" download>Télécharger</a>
+        </p>
+    </div>
+</body>
+</html>

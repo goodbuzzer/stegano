@@ -1,0 +1,56 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Application de steganographie</title>
+    <style>
+        .image-container {
+            position: relative;
+            width: 50%;
+            float: left;
+            text-align: center;
+
+        }
+        .button-link {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /*
+             This moves the element back by
+             half of its own width and height.
+            */
+        }
+
+        .footer {
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+   {% include "navbar.html" %}
+   <br><br>
+   <h1 align="center">BIENVENUE DANS NOTRE APPLICATION DE STEGANOGRAPHIE</h1>
+   <br><br>
+    <div class="image-container mt-5">
+        <img src="{% static 'images/encryption.png' %}" alt="Encryption Image" height="300px" width="500px">
+        <a href="encryption/" class="btn btn-danger button-link">Chiffrer</a>
+    </div>
+    <div class="image-container mt-5">
+        <img src="{% static 'images/decryption.png' %}" alt="Decryption Image" height="300px" width="500px">
+        <a href="decryption/" class="btn btn-danger button-link">Dechiffrer</a>
+    </div>
+    <footer class="footer">
+        <p>&copy; Groupe 5 TPE Cloud</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

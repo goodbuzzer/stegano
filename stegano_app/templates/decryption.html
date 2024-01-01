@@ -1,0 +1,21 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <title>Dechiffrement-Steganographie</title>
+</head>
+<body>
+        {% include "navbar.html" %}
+    <div class="container mt-5">
+        <h1 class="text-center">Dévoiler le message caché derrière une image</h1>
+        <form class="mt-5" action="{% url 'decryption' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="image">Ouvrir une image cryptée:</label>
+                <input type="file" name="image" id="image" class="form-control-file">
+            </div>
+            <input type="submit" value="Décrypter" class="btn btn-primary">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chiffrement-Steganographie</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        h2 {
+            text-align: center;
+            color: black;
+        }
+
+        .image-container {
+            display: inline-block;
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #495057;
+        }
+
+        select, textarea, .form-control-file {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #image-preview img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    {% include "navbar.html" %}
+    <div class="container">
+        <h1>Crypter votre message à l'aide d'une de nos images</h1>
+        <h2>Choisissez une catégorie d'image</h2>
+    <div align=center>
+        <div class="image-container">
+            <img src="{% static 'Foot.png' %}" alt="Foot" height="150px" width="100px">
+        </div>
+        <div class="image-container">
+            <img src="{% static 'Voiture.png' %}" alt="Voiture" height="150px" width="100px">
+        </div>
+        <div class="image-container">
+            <img src="{% static 'Livre.jpg' %}" alt="Livre" height="150px" width="100px">
+        </div>
+        <div class="image-container">
+            <img src="{% static 'Fruit.png' %}" alt="Fruit" height="150px" width="100px">
+        </div>
+
+    </div>
+        
+        <form action="{% url 'encryption' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="categorie">Choisir une catégorie:</label>
+                <select name="categorie" id="categorie">
+                    <option>Foot</option>
+                    <option>Voiture</option>
+                    <option>Livre</option>
+                    <option>Fruit</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="text">Entrer le message à décrypter:</label>
+                <textarea class="form-control" id="text" name="text" rows="3" required></textarea>
+            </div>
+
+            <button type="submit">Crypter</button>
+        </form>
+
+        <h1>Crypter à partir de votre image</h1>
+
+        <form action="{% url 'encryption_image' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="image">Choisir une image:</label>
+                <input type="file" class="form-control-file" id="image" name="image" required onchange="previewImage(this)">
+                <div id="image-preview"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="text">Entrer le message à décrypter:</label>
+                <textarea class="form-control" id="text" name="text" rows="3" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Crypter</button>
+        </form>
+    </div>
+
+    <script>
+        function previewImage(input) {
+            var preview = document.getElementById('image-preview');
+            preview.innerHTML = '';
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxWidth = '20%';
+                    img.style.height = '20%';
+                    preview.appendChild(img);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>
